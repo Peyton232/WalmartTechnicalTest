@@ -15,17 +15,6 @@ type Config struct {
 	DBPostgreDriver string `mapstructure:"DB_POSTGRE_DRIVER"`
 	DBPostgreDsn    string `mapstructure:"DB_POSTGRE_DSN"`
 	DBPostgreURL    string `mapstructure:"DB_POSTGRE_URL"`
-
-	JWTSecret  string `mapstructure:"JWT_SECRET"`
-	JWTExpired int    `mapstructure:"JWT_EXPIRED"`
-	JWTIssuer  string `mapstructure:"JWT_ISSUER"`
-
-	OTPEmail    string `mapstructure:"OTP_EMAIL"`
-	OTPPassword string `mapstructure:"OTP_PASSWORD"`
-
-	REDISHost     string `mapstructure:"REDIS_HOST"`
-	REDISPassword string `mapstructure:"REDIS_PASS"`
-	REDISExpired  int    `mapstructure:"REDIS_EXPIRED"`
 }
 
 func InitializeAppConfig() error {
@@ -47,7 +36,7 @@ func InitializeAppConfig() error {
 	}
 
 	// check
-	if AppConfig.Port == 0 || AppConfig.Environment == "" || AppConfig.JWTSecret == "" || AppConfig.JWTExpired == 0 || AppConfig.JWTIssuer == "" || AppConfig.OTPEmail == "" || AppConfig.OTPPassword == "" || AppConfig.REDISHost == "" || AppConfig.REDISPassword == "" || AppConfig.REDISExpired == 0 || AppConfig.DBPostgreDriver == "" {
+	if AppConfig.Port == 0 || AppConfig.Environment == "" || AppConfig.DBPostgreDriver == "" {
 		return constants.ErrEmptyVar
 	}
 

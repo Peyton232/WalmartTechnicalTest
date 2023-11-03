@@ -18,6 +18,7 @@ FROM alpine:latest
 
 # Copy the binary from the builder image
 COPY --from=builder /docker-gs-ping /docker-gs-ping
+COPY ./.env .
 
 # Expose port 8080
 EXPOSE 8080

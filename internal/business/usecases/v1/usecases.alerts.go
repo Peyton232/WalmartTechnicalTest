@@ -22,7 +22,7 @@ func NewAlertUsecase(repo V1Domains.AlertRepository) V1Domains.AlertUsecase {
 func (alertUC *alertUsecase) CreateAlert(ctx context.Context, inDom *V1Domains.AlertDomain) (statusCode int, err error) {
 	inDom.CreatedAt = time.Now().In(constants.GMT7)
 
-	err = alertUC.repo.CreateAlert(ctx, inDom)
+	err = alertUC.repo.Store(ctx, inDom)
 	if err != nil {
 		return http.StatusInternalServerError, err
 	}

@@ -23,6 +23,6 @@ type AlertUsecase interface {
 }
 
 type AlertRepository interface {
-	CreateAlert(ctx context.Context, inDom *AlertDomain) (err error)
+	Store(ctx context.Context, inDom *AlertDomain) (err error)
 	GetAlertsByTimeStamp(ctx context.Context, serviceID string, startTS time.Time, endTS time.Time) (outDomain []AlertDomain, err error)
 }

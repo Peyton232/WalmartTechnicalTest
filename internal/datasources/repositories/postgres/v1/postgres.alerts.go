@@ -19,7 +19,7 @@ func NewUserRepository(conn *sqlx.DB) V1Domains.AlertRepository {
 	}
 }
 
-func (r *postgreAlertRepository) CreateAlert(ctx context.Context, inDom *V1Domains.AlertDomain) (err error) {
+func (r *postgreAlertRepository) Store(ctx context.Context, inDom *V1Domains.AlertDomain) (err error) {
 	alertRecord := records.FromUsersV1Domain(inDom)
 
 	_, err = r.conn.NamedQueryContext(ctx, `INSERT INTO alerts(alert_id, service_id, service_name, model, alert_type, alert_ts, severity, team_slack, created_at) VALUES (:alert_id, :service_id, :service_name, :model, :alert_type, :alert_ts, :severity, :team_slack, :created_at)`, alertRecord)

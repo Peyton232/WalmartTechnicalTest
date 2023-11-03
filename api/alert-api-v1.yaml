@@ -1,0 +1,115 @@
+openapi: 3.0.0
+info:
+  title: Alert API
+  description: API for reading and writing alert data
+  version: 1.0.0
+
+paths:
+  /alerts:
+    post:
+      summary: Create a new alert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Alert"
+      responses:
+        "200":
+          description: Alert created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AlertResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    get:
+      summary: Get alerts within a time range
+      parameters:
+        - name: service_id
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Identifier of the service
+        - name: start_ts
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: Starting timestamp epoch
+        - name: end_ts
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: Ending timestamp epoch
+      responses:
+        "200":
+          description: Alerts retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AlertsResponse"
+        default:
+          description: Error response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+    Alert:
+      type: object
+      properties:
+        alert_id:
+          type: string
+        service_id:
+          type: string
+        service_name:
+          type: string
+        model:
+          type: string
+        alert_type:
+          type: string
+        alert_ts:
+          type: string
+        severity:
+          type: string
+        team_slack:
+          type: string
+
+    AlertResponse:
+      type: object
+      properties:
+        alert_id:
+          type: string
+        error:
+          type: string
+
+    AlertsResponse:
+      type: object
+      properties:
+        service_id:
+          type: string
+        service_name:
+          type: string
+        alerts:
+          type: array
+          items:
+            $ref: "#/components/schemas/Alert"
+
+    Error:
+      type: object
+      properties:
+        alert_id:
+          type: string
+        error:
+          type: string

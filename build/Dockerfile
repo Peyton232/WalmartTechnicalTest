@@ -4,8 +4,8 @@ FROM golang:1.20
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy the Go application source code to the container
-COPY . .
+# Copy the Go application source code and go.mod/go.sum files to the container
+COPY ../ ./
 
 # Build the Go application
 RUN go build -o myapp
